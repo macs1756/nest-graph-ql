@@ -6,6 +6,8 @@ import { UserSetting } from './graphql/models/UserSetting';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { UsersModule } from './users/users.module';
+import { Post } from './graphql/models/Post';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -25,12 +27,13 @@ import { UsersModule } from './users/users.module';
         username: configService.get<string>('DATABASE_LOGIN'),
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
-        entities: [User, UserSetting],
+        entities: [User, UserSetting, Post],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
     UsersModule,
+    PostModule,
   ],
   controllers: [],
   providers: [],

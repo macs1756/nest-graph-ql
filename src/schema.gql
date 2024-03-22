@@ -21,14 +21,31 @@ type User {
   settings: UserSetting
 }
 
+type Post {
+  id: Int!
+  title: String!
+  description: String!
+  timestamp: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
   getUserById(id: Int!): User
   getUsers: [User!]!
+  getAllPosts: [Post!]!
+  getPostById(id: Int!): Post!
 }
 
 type Mutation {
   createUser(createUserData: CreateUserInput!): User!
   createUserSettings(createUserSettingsData: CreateUserSettingsInput!): UserSetting!
+  createPost(createPostInput: CreatePostInput!): Post!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+  removePost(id: Int!): Post!
 }
 
 input CreateUserInput {
@@ -40,4 +57,15 @@ input CreateUserSettingsInput {
   userId: Int!
   receiveNotifications: Boolean = false
   receiveEmails: Boolean = false
+}
+
+input CreatePostInput {
+  title: String!
+  description: String!
+}
+
+input UpdatePostInput {
+  title: String
+  description: String
+  id: Int!
 }
