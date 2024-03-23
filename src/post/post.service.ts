@@ -29,8 +29,22 @@ export class PostService {
     return this.postRepository.findOneBy({ id });
   }
 
-  update(id: number, updatePostInput: UpdatePostInput) {
-    return `This action updates a #${id} post`;
+  async update(id: number, updatePostInput: UpdatePostInput) {
+
+    let currentElement = await this.postRepository.findOneBy({ id });
+
+    const { title, description } = updatePostInput
+
+    if (title) {
+      currentElement.title = title;
+    }
+
+    if (description) {
+      currentElement.description = description;
+    }
+
+    return this.postRepository.save(currentElement);
+
   }
 
   async remove(id: number) {
