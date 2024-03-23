@@ -33,6 +33,10 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type RemovePostResponse {
+  message: String!
+}
+
 type Query {
   getUserById(id: Int!): User
   getUsers: [User!]!
@@ -45,7 +49,7 @@ type Mutation {
   createUserSettings(createUserSettingsData: CreateUserSettingsInput!): UserSetting!
   createPost(createPostInput: CreatePostInput!): Post!
   updatePost(updatePostInput: UpdatePostInput!): Post!
-  removePost(id: Int!): Post!
+  removePost(id: Int!): RemovePostResponse!
 }
 
 input CreateUserInput {

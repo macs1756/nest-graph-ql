@@ -3,7 +3,8 @@ import { PostService } from './post.service';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
 import { Post } from '../graphql/models/Post';
-
+import { RemovePostResponse } from '../others/RemovePostResponse'
+ 
 @Resolver(() => Post)
 export class PostResolver {
   constructor(private readonly postService: PostService) {}
@@ -28,7 +29,7 @@ export class PostResolver {
     return this.postService.update(updatePostInput.id, updatePostInput);
   }
 
-  @Mutation(() => Post)
+  @Mutation(() => RemovePostResponse)
   removePost(@Args('id', { type: () => Int }) id: number) {
     return this.postService.remove(id);
   }
