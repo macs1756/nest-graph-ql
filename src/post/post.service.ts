@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from 'src/graphql/models/Post';
 import { Repository } from 'typeorm';
 
+
 @Injectable()
 export class PostService {
   constructor(
@@ -32,7 +33,15 @@ export class PostService {
     return `This action updates a #${id} post`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async remove(id: number) {
+
+    const isExist = await this.postRepository.findOneBy({ id });
+    
+    if(!isExist){
+      return { message: `Element with id:${id} not found` };
+    }
+
+    await this.postRepository.delete({ id })
+    return {message: `Successfully deleted the post with id:${id}`};
   }
 }
