@@ -32,30 +32,12 @@ export class AutorService {
       return posts;
     };
 
-    const postsData = await fetchPosts(postsId);
-
-    const posts = postsData.map(data => ({
-      id: data.id,
-      title: data.title,
-      description: data.description,
-      timestamp: new Date(data.timestamp)
-    }));
-
-    const postsData2 = [
-      { id: 3, title: 'new title 3', description: 'new description', timestamp: new Date('2024-03-22T19:00:25.854Z') },
-      { id: 7, title: 'title 5', description: 'Description for this post version2', timestamp: new Date('2024-03-23T18:04:03.271Z') }
-    ];
-
-    newAutor.posts = postsData2
+    newAutor.posts = await fetchPosts(postsId);
 
     this.autorRepository.save(newAutor)
 
-    const currentAutor = 
-    await this.autorRepository.findOne(ChatRoomEntity, {
-      where: {id: newAutor.id},
-      relations: ['posts'],
-    })
-
+    const currentAutor = await this.autorRepository.findOne({ where: { id: 50 }, relations:['posts'] });
+    
     return currentAutor;
   }
 

@@ -20,10 +20,8 @@ export class Post {
   @Column()
   @Field()
   timestamp: Date;
-
   
   @ManyToOne(() => Autor, autor => autor.posts)
-  @JoinColumn()
   @Field(() => Autor, { nullable: true })
-  autor?: Autor;
+  autor: Autor;
 }
