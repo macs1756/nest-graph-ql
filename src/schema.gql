@@ -21,17 +21,26 @@ type User {
   settings: UserSetting
 }
 
-type Post {
+type Autor {
   id: Int!
-  title: String!
-  description: String!
+  email: String!
+  adress: String!
   timestamp: DateTime!
+  posts: Post
 }
 
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+type Post {
+  id: Int!
+  title: String!
+  description: String!
+  timestamp: DateTime!
+  autor: Autor
+}
 
 type RemovePostResponse {
   message: String!
@@ -42,6 +51,7 @@ type Query {
   getUsers: [User!]!
   getAllPosts: [Post!]!
   getPostById(id: Int!): Post!
+  autor(id: Int!): Autor!
 }
 
 type Mutation {
@@ -50,6 +60,9 @@ type Mutation {
   createPost(createPostInput: CreatePostInput!): Post!
   updatePost(updatePostInput: UpdatePostInput!): Post!
   removePost(id: Int!): RemovePostResponse!
+  createAutor(createAutorInput: CreateAutorInput!): Autor!
+  updateAutor(updateAutorInput: UpdateAutorInput!): Autor!
+  removeAutor(id: Int!): Autor!
 }
 
 input CreateUserInput {
@@ -71,5 +84,18 @@ input CreatePostInput {
 input UpdatePostInput {
   title: String
   description: String
+  id: Int!
+}
+
+input CreateAutorInput {
+  email: String!
+  adress: String!
+  postsId: [Int!]
+}
+
+input UpdateAutorInput {
+  email: String
+  adress: String
+  postsId: [Int!]
   id: Int!
 }
