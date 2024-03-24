@@ -24,6 +24,6 @@ export class Autor {
   @OneToMany(() => Post, post => post.id)
   @JoinColumn()
   @Field(() => Post, { nullable: true })
-  posts?: Post;
+  posts?: Post[];
 
 }

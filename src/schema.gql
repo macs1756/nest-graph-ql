@@ -87,12 +87,14 @@ input UpdatePostInput {
 }
 
 input CreateAutorInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  email: String!
+  adress: String!
+  postsId: [Int!]
 }
 
 input UpdateAutorInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  email: String
+  adress: String
+  postsId: [Int!]
   id: Int!
 }
