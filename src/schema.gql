@@ -37,11 +37,20 @@ type RemovePostResponse {
   message: String!
 }
 
+type Autor {
+  id: Int!
+  email: String!
+  adress: String!
+  timestamp: DateTime!
+  posts: Post
+}
+
 type Query {
   getUserById(id: Int!): User
   getUsers: [User!]!
   getAllPosts: [Post!]!
   getPostById(id: Int!): Post!
+  autor(id: Int!): Autor!
 }
 
 type Mutation {
@@ -50,6 +59,9 @@ type Mutation {
   createPost(createPostInput: CreatePostInput!): Post!
   updatePost(updatePostInput: UpdatePostInput!): Post!
   removePost(id: Int!): RemovePostResponse!
+  createAutor(createAutorInput: CreateAutorInput!): Autor!
+  updateAutor(updateAutorInput: UpdateAutorInput!): Autor!
+  removeAutor(id: Int!): Autor!
 }
 
 input CreateUserInput {
@@ -71,5 +83,16 @@ input CreatePostInput {
 input UpdatePostInput {
   title: String
   description: String
+  id: Int!
+}
+
+input CreateAutorInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateAutorInput {
+  """Example field (placeholder)"""
+  exampleField: Int
   id: Int!
 }
