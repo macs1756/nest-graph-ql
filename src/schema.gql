@@ -39,7 +39,7 @@ type Post {
   title: String!
   description: String!
   timestamp: DateTime!
-  autor: Autor
+  author: Autor
 }
 
 type RemovePostResponse {
