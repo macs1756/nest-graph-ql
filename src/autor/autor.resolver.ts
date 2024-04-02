@@ -13,8 +13,8 @@ export class AutorResolver {
     return this.autorService.create(createAutorInput);
   }
 
-  @Query(() => [Autor], { name: 'autor' })
-  findAll() {
+  @Query(() => [Autor], { name: 'getAllAuthors' })
+  getAllAuthors() {
     return this.autorService.findAll();
   }
 

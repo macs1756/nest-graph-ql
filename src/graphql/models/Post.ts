@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Autor } from './Autor';
 
 @Entity({ name: 'posts' })
@@ -21,7 +21,8 @@ export class Post {
   @Field()
   timestamp: Date;
   
-  @ManyToOne(() => Autor, autor => autor.posts)
-  @Field(() => Autor, { nullable: true })
-  autor: Autor;
+  @ManyToOne(() => Autor, author => author.posts)
+  @Field(() => Autor)
+  author: Autor;
+
 }
