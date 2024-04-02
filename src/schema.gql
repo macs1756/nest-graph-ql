@@ -26,7 +26,7 @@ type Autor {
   email: String!
   adress: String!
   timestamp: DateTime!
-  posts: Post
+  posts: Post!
 }
 
 """
@@ -39,7 +39,7 @@ type Post {
   title: String!
   description: String!
   timestamp: DateTime!
-  author: Autor
+  author: Autor!
 }
 
 type RemovePostResponse {
@@ -51,6 +51,7 @@ type Query {
   getUsers: [User!]!
   getAllPosts: [Post!]!
   getPostById(id: Int!): Post!
+  getAllAuthors: [Autor!]!
   autor(id: Int!): Autor!
 }
 

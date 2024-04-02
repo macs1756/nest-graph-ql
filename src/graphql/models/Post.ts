@@ -22,7 +22,7 @@ export class Post {
   timestamp: Date;
   
   @ManyToOne(() => Autor, author => author.posts)
-  @Field(() => Autor, { nullable: true })
+  @Field(() => Autor)
   author: Autor;
 
 }

@@ -18,33 +18,29 @@ export class AutorService {
 
     const { adress, email, postsId } = createAutorInput
 
+    const fetchPosts = async (postsId: number[]): Promise<Post[]> => {
+      const postsPromises = postsId.map(id => this.postRepository.findOneBy({ id }));
+      const posts = await Promise.all(postsPromises);
+      return posts;
+    };
+
     const newAutor = this.autorRepository.create({
       adress,
       email,
       timestamp: new Date(),
-      posts: []
+      posts: await fetchPosts(postsId)
     })
 
-    const fetchPosts = async (postsId: number[]): Promise<Post[]> => {
-      const postsPromises = postsId.map(id => this.postRepository.findOneBy({ id }));
-      const posts = await Promise.all(postsPromises);  
-      return posts;
-    };
 
-    newAutor.posts = await fetchPosts(postsId);
+    const currentAuthor = await this.autorRepository.save(newAutor)
 
-    await this.autorRepository.save(newAutor)
+    console.log(currentAuthor);
 
-    const currentAutor = await this.autorRepository.findOne({ where: { id: 50 }, relations:['posts'] });
-    
-    return currentAutor;
+    return currentAuthor;
   }
 
-
-
-
   findAll() {
-    return `This action returns all autor`;
+    return this.autorRepository.find({ relations: ['posts'] })
   }
 
   findOne(id: number) {
