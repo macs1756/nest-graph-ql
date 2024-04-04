@@ -34,7 +34,7 @@ export class AutorService {
 
     const currentAuthor = await this.autorRepository.save(newAutor)
 
-    console.log(currentAuthor);
+    //console.log(currentAuthor);
 
     return currentAuthor;
   }

@@ -7,4 +7,8 @@ export class CreatePostInput {
 
   @Field()
   description: string;
+
+  @Field()
+  autor_id: number;
+  
 }

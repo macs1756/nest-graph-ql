@@ -14,8 +14,13 @@ export class PostService {
   ) {}
 
   create(createPostDto: CreatePostInput) {
+
+    console.log(createPostDto.autor_id);
+    
+
     const newUser = this.postRepository.create({
       ...createPostDto,
+      autor_id:  96,
       timestamp: new Date(),
     });
     return this.postRepository.save(newUser);

@@ -21,7 +21,7 @@ export class Autor {
   @Field()
   timestamp: Date;
 
-  @OneToMany(() => Post, post => post.author)
+  @OneToMany(() => Post, post => post.id)
   @Field(() => Post)
   posts: Post[];
 
