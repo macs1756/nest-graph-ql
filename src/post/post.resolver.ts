@@ -10,6 +10,7 @@ export class PostResolver {
   constructor(private readonly postService: PostService) {}
 
   @Mutation(() => Post)
+  @Cre
   createPost(@Args('createPostInput') createPostInput: CreatePostInput) {
     return this.postService.create(createPostInput);
   }
