@@ -31,19 +31,13 @@ export class AutorService {
       posts: await fetchPosts(postsId)
     })
 
-
-    
     const currentAuthor = await this.autorRepository.save(newAutor)
 
-    const allAuthor =  await this.autorRepository.findOne({where: {id: currentAuthor.id}, relations: ['posts'] });
-
-    //console.log(currentAuthor);
-
-    return allAuthor;
+    return currentAuthor;
   }
 
-  findAll() {
-    return this.autorRepository.find({ relations: ['posts'] })
+  async findAll() {   
+    return await this.autorRepository.find({ relations: ['posts'] })
   }
 
   findOne(id: number) {

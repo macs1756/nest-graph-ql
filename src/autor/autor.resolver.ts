@@ -19,7 +19,7 @@ export class AutorResolver {
   }
 
   @Query(() => Autor, { name: 'autor' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  getOneAuthor(@Args('id', { type: () => Int }) id: number) {
     return this.autorService.findOne(id);
   }
 

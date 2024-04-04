@@ -20,7 +20,7 @@ export class PostResolver {
   }
 
   @Query(() => Post, { name: 'getPostById' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  GetPostById(@Args('id', { type: () => Int }) id: number) {
     return this.postService.findOne(id);
   }
 

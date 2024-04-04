@@ -28,7 +28,6 @@ export class PostService {
       author: author
     });
 
-    // Збереження нового посту у базі даних
     return await this.postRepository.save(newPost);
 }
 
@@ -39,7 +38,7 @@ export class PostService {
   }
 
   findOne(id: number) {
-    return this.postRepository.findOneBy({ id });
+    return this.postRepository.findOne({where: { id }, relations: ['author']});
   }
 
   async update(id: number, updatePostInput: UpdatePostInput) {
