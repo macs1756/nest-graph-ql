@@ -6,15 +6,15 @@ export class CreatePostInput {
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(4)
-  @MaxLength(40)
+  @MinLength(4, { message: 'Повідомлення повинно містити принаймні 4 символи' })
+  @MaxLength(40, { message: 'Повідомлення повинно містити максимум 60 символів' })
   @Field()
   title: string;
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(4)
-  @MaxLength(40)
+  @MinLength(4, { message: 'Повідомлення повинно містити принаймні 4 символи' })
+  @MaxLength(40, { message: 'Повідомлення повинно містити максимум 60 символів' })
   @Field()
   description: string;
 

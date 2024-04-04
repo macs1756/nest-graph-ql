@@ -4,13 +4,14 @@ import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
 import { Post } from '../graphql/models/Post';
 import { RemovePostResponse } from '../others/RemovePostResponse'
+import { UsePipes, ValidationPipe } from '@nestjs/common';
  
 @Resolver(() => Post)
 export class PostResolver {
   constructor(private readonly postService: PostService) {}
 
   @Mutation(() => Post)
-  @Cre
+  @UsePipes(new ValidationPipe())
   createPost(@Args('createPostInput') createPostInput: CreatePostInput) {
     return this.postService.create(createPostInput);
   }
