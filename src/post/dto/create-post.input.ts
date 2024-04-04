@@ -9,6 +9,6 @@ export class CreatePostInput {
   description: string;
 
   @Field()
-  autor_id: number;
+  authorId: number;
   
 }

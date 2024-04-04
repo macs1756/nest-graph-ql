@@ -23,9 +23,7 @@ export class Post {
   
   @ManyToOne(() => Autor, author => author.posts)
   @JoinColumn({ name: 'autor_id'})
-
-
-  // @Field(() => Autor)
-  // author: Autor;
+  @Field(() => Autor)
+  author: Autor;
 
 }

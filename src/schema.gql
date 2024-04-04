@@ -80,13 +80,13 @@ input CreateUserSettingsInput {
 input CreatePostInput {
   title: String!
   description: String!
-  autor_id: Float!
+  authorId: Float!
 }
 
 input UpdatePostInput {
   title: String
   description: String
-  autor_id: Float
+  authorId: Float
   id: Int!
 }
 

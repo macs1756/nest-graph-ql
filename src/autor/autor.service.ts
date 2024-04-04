@@ -32,11 +32,14 @@ export class AutorService {
     })
 
 
+    
     const currentAuthor = await this.autorRepository.save(newAutor)
+
+    const allAuthor =  await this.autorRepository.findOne({where: {id: currentAuthor.id}, relations: ['posts'] });
 
     //console.log(currentAuthor);
 
-    return currentAuthor;
+    return allAuthor;
   }
 
   findAll() {

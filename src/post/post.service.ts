@@ -4,6 +4,7 @@ import { UpdatePostInput } from './dto/update-post.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from 'src/graphql/models/Post';
 import { Repository } from 'typeorm';
+import { Autor } from 'src/graphql/models/Autor';
 
 
 @Injectable()
@@ -11,23 +12,30 @@ export class PostService {
   constructor(
     @InjectRepository(Post)
     private postRepository: Repository<Post>,
+    @InjectRepository(Autor) 
+    private autorRepository: Repository<Autor>
   ) {}
 
-  create(createPostDto: CreatePostInput) {
 
-    console.log(createPostDto.autor_id);
-    
+  async create(createPostDto: CreatePostInput): Promise<Post> {
+    const { authorId, ...postData } = createPostDto;
 
-    const newUser = this.postRepository.create({
-      ...createPostDto,
-      autor_id:  96,
+    const author = await this.autorRepository.findOne({ where: { id: authorId } });
+
+    const newPost = this.postRepository.create({
+      ...postData,
       timestamp: new Date(),
+      author: author
     });
-    return this.postRepository.save(newUser);
-  }
+
+    // Збереження нового посту у базі даних
+    return await this.postRepository.save(newPost);
+}
+
+
 
   findAll() {
-    return this.postRepository.find();
+    return this.postRepository.find({relations: ['author']});
   }
 
   findOne(id: number) {
