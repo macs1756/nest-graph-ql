@@ -4,6 +4,7 @@ import { UpdatePostInput } from './dto/update-post.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from 'src/graphql/models/Post';
 import { Repository } from 'typeorm';
+import { Autor } from 'src/graphql/models/Autor';
 
 
 @Injectable()
@@ -11,22 +12,33 @@ export class PostService {
   constructor(
     @InjectRepository(Post)
     private postRepository: Repository<Post>,
+    @InjectRepository(Autor) 
+    private autorRepository: Repository<Autor>
   ) {}
 
-  create(createPostDto: CreatePostInput) {
-    const newUser = this.postRepository.create({
-      ...createPostDto,
+
+  async create(createPostDto: CreatePostInput): Promise<Post> {
+    const { authorId, ...postData } = createPostDto;
+
+    const author = await this.autorRepository.findOne({ where: { id: authorId } });
+
+    const newPost = this.postRepository.create({
+      ...postData,
       timestamp: new Date(),
+      author: author
     });
-    return this.postRepository.save(newUser);
-  }
+
+    return await this.postRepository.save(newPost);
+}
+
+
 
   findAll() {
-    return this.postRepository.find();
+    return this.postRepository.find({relations: ['author']});
   }
 
   findOne(id: number) {
-    return this.postRepository.findOneBy({ id });
+    return this.postRepository.findOne({where: { id }, relations: ['author']});
   }
 
   async update(id: number, updatePostInput: UpdatePostInput) {

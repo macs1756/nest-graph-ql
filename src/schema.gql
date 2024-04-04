@@ -26,7 +26,7 @@ type Autor {
   email: String!
   adress: String!
   timestamp: DateTime!
-  posts: Post!
+  posts: [Post!]
 }
 
 """
@@ -80,11 +80,13 @@ input CreateUserSettingsInput {
 input CreatePostInput {
   title: String!
   description: String!
+  authorId: Float!
 }
 
 input UpdatePostInput {
   title: String
   description: String
+  authorId: Float
   id: Int!
 }
 

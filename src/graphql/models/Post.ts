@@ -22,6 +22,7 @@ export class Post {
   timestamp: Date;
   
   @ManyToOne(() => Autor, author => author.posts)
+  @JoinColumn({ name: 'autor_id'})
   @Field(() => Autor)
   author: Autor;
 
