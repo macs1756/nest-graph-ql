@@ -1,10 +1,9 @@
 import { WebSocketGateway, SubscribeMessage, WebSocketServer, OnGatewayInit } from "@nestjs/websockets";
-import { OnModuleInit } from '@nestjs/common';
 import { Server } from 'socket.io';
 
 @WebSocketGateway(80, {
   cors: {
-    origin: 'http://localhost:3000/'
+    origin: '*'
   }
 })
 export default class MyGateway implements OnGatewayInit {
@@ -14,10 +13,12 @@ export default class MyGateway implements OnGatewayInit {
   //inherited from core
   afterInit() {
 
-    //listen connect fronend
-    this.server.on('connection', socket => {
-      this.createNewValue()
-    });
+    //listen connect frontend
+    // this.server.on('connection', socket => {
+    //   this.createNewValue()
+    // });
+
+    this.createNewValue()
   }
 
   //event to subscribe
@@ -30,9 +31,8 @@ export default class MyGateway implements OnGatewayInit {
       //give back
       this.server.emit('graph', randomValue);
 
-      setTimeout(sendGraphData, 3000);
+      setTimeout(sendGraphData, 1000);
     };
-
-    sendGraphData();
+    sendGraphData()
   }
 }
