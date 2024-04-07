@@ -1,10 +1,26 @@
-import { MessageBody, SubscribeMessage, WebSocketGateway } from "@nestjs/websockets";
+import { WebSocketGateway, SubscribeMessage, WebSocketServer, OnGatewayInit } from "@nestjs/websockets";
+import { OnModuleInit } from '@nestjs/common';
+import { Server } from 'socket.io';
 
-@WebSocketGateway()
-export class myGateWay{
+@WebSocketGateway(80)
+export default class MyGateway implements OnGatewayInit {
+  @WebSocketServer()
+  server: Server;
 
-  @SubscribeMessage('newMessage')
-  onNewMessage (@MessageBody() body: any) {
-    console.log(body);
+
+  afterInit() {
+    this.server.on('connection', socket => {
+      this.createNewValue()
+    });
+  }
+
+  @SubscribeMessage('graph')
+  createNewValue() {
+    const sendGraphData = () => {
+      this.server.emit('graph', 'test');
+      setTimeout(sendGraphData, 3000);
+    };
+
+    sendGraphData();
   }
 }
