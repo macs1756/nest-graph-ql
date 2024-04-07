@@ -10,7 +10,7 @@ import { Post } from './graphql/models/Post';
 import { PostModule } from './post/post.module';
 import { AutorModule } from './autor/autor.module';
 import { Autor } from './graphql/models/Autor';
-import { RandomNumberGraphModule } from './random-number-graph/random-number-graph.module';
+import { GateWayModule } from './gateway/gateway.module'
 
 @Module({
   imports: [
@@ -38,7 +38,7 @@ import { RandomNumberGraphModule } from './random-number-graph/random-number-gra
     UsersModule,
     PostModule,
     AutorModule,
-    RandomNumberGraphModule,
+    GateWayModule,
   ],
   controllers: [],
   providers: [],
